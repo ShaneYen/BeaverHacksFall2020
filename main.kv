@@ -23,6 +23,7 @@ WindowManager:
             TextInput:
                 id: set
                 multiline: False
+                input_filter: 'int'
 
             Label:
                 text: "Duration of Sets: "
@@ -30,6 +31,7 @@ WindowManager:
             TextInput:
                 id: dura
                 multiline: False
+                input_filter: 'int'
 
         Button:
             text: "Start Workout"
@@ -38,6 +40,7 @@ WindowManager:
                 root.manager.transition.direction ="left"
 
 <TimerWindow>:
+#### MAKE THIS A FLOAT LAYOUT
     name: "TimerWindow"
     GridLayout:
         cols: 1
@@ -51,7 +54,9 @@ WindowManager:
 
             Button:
                 text: "Pause"
-                on_release: app.root.current = "main"
+                on_release:
+                    root.pause()
+
         Button:
             text: "Back"
             on_release:

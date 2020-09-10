@@ -1,27 +1,38 @@
 import kivy
 from kivy.app import App
-# from kivy.uix.label import Label
-# from kivy.uix.gridlayout import GridLayout
-# from kivy.uix.textinput import TextInput
-# from kivy.uix.button import Button
-# from kivy.uix.widget import Widget
-# from kivy.properties import ObjectProperty
-# from kivy.uix.floatlayout import FloatLayout
-# from kivy.graphics import Rectangle
-# from kivy.graphics import Color
+from kivy.uix.label import Label
+from kivy.uix.gridlayout import GridLayout
+from kivy.uix.textinput import TextInput
+from kivy.uix.widget import Widget
+from kivy.properties import ObjectProperty
+from kivy.uix.floatlayout import FloatLayout
+from kivy.graphics import Rectangle
+from kivy.graphics import Color
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.clock import Clock
 
 class MainWindow(Screen):
-    pass
+    set_number = ObjectProperty(None)
+    duration = ObjectProperty(None)
+
+    #def startWorkout(dt):
+        #Move to TimerWindowScreen
+        #Start countdown
+
 
 class TimerWindow(Screen):
-    pass
+
+    def pause(self):
+        print('pressed')
 
 class WindowManager(ScreenManager):
     pass
 
+
 kv = Builder.load_file("main.kv")
+app_return = WindowManager()
+
 class MainApp(App):
     def build(self):
         '''Main interface'''
