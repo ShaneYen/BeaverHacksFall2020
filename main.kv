@@ -3,11 +3,23 @@ WindowManager:
     TimerWindow:
 
 
+<Label>:
+    color: 1,0,0,1
+
 <MainWindow>:
     name: "main"
 
+    canvas:
+        Color:
+            rgb: (0.93, 0.93, 0.93)
+
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
     set_number: set
     duration: dura
+    break_duration: break_dura
 
     GridLayout:
         cols: 1
@@ -34,6 +46,14 @@ WindowManager:
                 multiline: False
                 input_filter: 'int'
 
+            Label:
+                text: "Duration of Each Break: "
+
+            TextInput:
+                id: break_dura
+                multiline: False
+                input_filter: 'int'
+
         Button:
             text: "Start Workout"
             on_release:
@@ -41,26 +61,43 @@ WindowManager:
                 app.root.current = "TimerWindow"
                 root.manager.transition.direction ="left"
 
+
 <TimerWindow>:
     name: "TimerWindow"
-    GridLayout:
-        cols: 1
-        Label:
-            text: "Timer Goes Here"
+    canvas:
+        Color:
+            rgb: (0.93, 0.93, 0.93)
 
-        GridLayout:
-            cols: 1
-            size: root.width, root.height
+        Rectangle:
+            pos: self.pos
+            size: self.size
 
-            Button:
-                text: "Pause"
-                on_release:
-                    root.pause()
+    Button:
+        text: "Pause/continue button - display text to be replaced with timer"
+        font_size: 30
+        size_hint: 1, 1
+        background_color: 0,1,0,1
+        color: 1,.53,.36,1
+        pos_hint: {"x": 0, "bottom":1}
+        on_release: root.pause()
 
-        Button:
-            text: "Back"
-            on_release:
-                app.root.current = "main"
-                root.manager.transition.direction ="right"
+    Button:
+        text: "Restart"
+        font_size: 40
+        size_hint: 0.2, 0.2
+        background_color: 1,0,0,1
+        color: .36,.53,.36,1
+        pos_hint: {"x": .8, "bottom":1}
+        ###on_release: restart
+
+    Button:
+        text: "Back"
+        font_size: 40
+        size_hint: 0.2, 0.2
+        pos_hint: {"x": 0, "bottom":1}
+
+        on_release:
+            app.root.current = "main"
+            root.manager.transition.direction ="right"
 
 
