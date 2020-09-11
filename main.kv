@@ -1,0 +1,66 @@
+WindowManager:
+    MainWindow:
+    TimerWindow:
+
+
+<MainWindow>:
+    name: "main"
+
+    set_number: set
+    duration: dura
+
+    GridLayout:
+        cols: 1
+        size: root.width, root.height
+
+        Label:
+            text: "HIIT Timer"
+        GridLayout:
+            cols:2
+
+            Label:
+                text: "# of Sets: "
+
+            TextInput:
+                id: set
+                multiline: False
+                input_filter: 'int'
+
+            Label:
+                text: "Duration of Sets: "
+
+            TextInput:
+                id: dura
+                multiline: False
+                input_filter: 'int'
+
+        Button:
+            text: "Start Workout"
+            on_release:
+                root.countdown()
+                app.root.current = "TimerWindow"
+                root.manager.transition.direction ="left"
+
+<TimerWindow>:
+    name: "TimerWindow"
+    GridLayout:
+        cols: 1
+        Label:
+            text: "Timer Goes Here"
+
+        GridLayout:
+            cols: 1
+            size: root.width, root.height
+
+            Button:
+                text: "Pause"
+                on_release:
+                    root.pause()
+
+        Button:
+            text: "Back"
+            on_release:
+                app.root.current = "main"
+                root.manager.transition.direction ="right"
+
+
