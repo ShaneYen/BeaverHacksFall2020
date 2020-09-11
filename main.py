@@ -9,12 +9,13 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.graphics import Rectangle
 from kivy.graphics import Color
 from kivy.lang import Builder
-from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.uix.screenmanager import ScreenManager, Screen, CardTransition
 from kivy.clock import Clock
 from kivy.animation import Animation
 from kivy.properties import StringProperty, NumericProperty
 from kivy.uix.popup import Popup
 from kivy.uix.button import Button
+
 
 
 class MainWindow(Screen):
@@ -59,11 +60,9 @@ class TimerWindow(Screen):
             setduration=setdurationoriginal
         print ("FINISHED")
 
-# class WindowManager(ScreenManager):
-#     pass
 
 kv = Builder.load_file("main.kv")
-sm = ScreenManager()
+sm = ScreenManager(transition=CardTransition())
 sm.add_widget(MainWindow(name='main'))
 sm.add_widget(TimerWindow(name='timer'))
 
