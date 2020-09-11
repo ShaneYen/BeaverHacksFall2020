@@ -2,6 +2,7 @@ WindowManager:
     MainWindow:
     TimerWindow:
 
+
 <MainWindow>:
     name: "main"
 
@@ -36,17 +37,16 @@ WindowManager:
         Button:
             text: "Start Workout"
             on_release:
+                root.countdown()
                 app.root.current = "TimerWindow"
                 root.manager.transition.direction ="left"
 
 <TimerWindow>:
-#### MAKE THIS A FLOAT LAYOUT
     name: "TimerWindow"
     GridLayout:
         cols: 1
         Label:
-            text: "HIIT Timer"
-
+            text: "Timer Goes Here"
 
         GridLayout:
             cols: 1

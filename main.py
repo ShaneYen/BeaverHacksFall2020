@@ -16,22 +16,39 @@ class MainWindow(Screen):
     set_number = ObjectProperty(None)
     duration = ObjectProperty(None)
 
-    #def startWorkout(dt):
-        #Move to TimerWindowScreen
-        #Start countdown
 
+    def countdown(self):
+        totalsets= int(self.set_number.text)
+        setduration=int(self.duration.text)
+        TimerWindow().start_timer(totalsets, setduration)
 
 class TimerWindow(Screen):
-
     def pause(self):
         print('pressed')
+
+    def start_timer(self, totalsets, setduration):
+        setdurationoriginal=setduration
+        while totalsets>0:
+            if totalsets==1:
+                print(totalsets, "set left.")
+            else:
+                print(totalsets, "sets left.")
+            totalsets-=1
+            while setduration>=0:
+                if setduration==1:
+                    print (setduration, "second left.")
+                else:
+                    print (setduration, "seconds left.")
+                setduration-=1
+            setduration=setdurationoriginal
+        print ("FINISHED")
 
 class WindowManager(ScreenManager):
     pass
 
 
 kv = Builder.load_file("main.kv")
-app_return = WindowManager()
+
 
 class MainApp(App):
     def build(self):
@@ -43,60 +60,4 @@ class MainApp(App):
 if __name__ == "__main__":
     MainApp().run() #.run method from App class
 
-
-####Extra Code from learning Kivy basics, keeping it here for now in case I need to refer back to it
-# class MyGrid(GridLayout):
-#     '''Holds design elements'''
-#     def __init__(self, **kwargs):
-#         super(MyGrid, self).__init__(**kwargs)
-#         self.cols=1
-#
-#         #User parameters
-#         self.timer_parameters=GridLayout()
-#         self.timer_parameters.cols = 2
-#
-#         self.timer_parameters.add_widget(Label(text='# of Sets'))
-#         self.number_of_sets = TextInput(multiline=False)
-#         self.timer_parameters.add_widget(self.number_of_sets)
-#
-#         self.timer_parameters.add_widget(Label(text='Duration of each Set'))
-#         self.set_duration = TextInput(multiline=False)
-#         self.timer_parameters.add_widget(self.set_duration)
-#
-#         self.add_widget(self.timer_parameters)
-#
-#         #Start button
-#         self.submit = Button(text="Start", font_size=40)
-#         self.submit.bind(on_press=self.pressed)
-#         self.add_widget (self.submit)
-#
-#     def pressed(self, instance):
-#         totalsets= self.number_of_sets.text
-#         setduration=self.set_duration.text
-#         print(totalsets + setduration)
-
-# class MyGrid(Widget):
-#     set_number = ObjectProperty(None)
-#     duration = ObjectProperty(None)
-#     # pythoncode:ID <- for global variables in kv file
-#
-#     def button_press(self):
-#         print("Number of sets:", self.set_number.text)
-#         print("Duration of sets:", self.duration.text)
-#         self.set_number.text=""
-#         self.duration.text=""
-
-#kv file has to be the name of the main class (- app) Ex: MyApp= my.kv
-
-# class Touch(Widget):
-#     btn = ObjectProperty(None)
-#
-#     def on_touch_down(self, touch):
-#         print("Mouse Down", touch)
-#         self.btn.opacity=0.5
-#     def on_touch_move(self, touch):
-#         print("Mouse Move", touch)
-#     def on_touch_up(self, touch):
-#         print("Mouse Up", touch)
-#         self.btn.opacity = 1
 
