@@ -15,6 +15,7 @@ from kivy.animation import Animation
 from kivy.properties import StringProperty, NumericProperty
 from kivy.uix.popup import Popup
 from kivy.uix.button import Button
+from kivy.core.window import Window
 from functools import partial
 import datetime
 
@@ -77,7 +78,7 @@ class TimerWindow(Screen):
         '''Decrements the time left in the workout.'''
         if self.current_timer == "work":
             self.counter.text = str(self.work_duration)
-            self.pausebutton.background_color = 0, 1, 0, 1
+            # self.pausebutton.background_color = 0.713725490196078,0.784313725490196,0.309803921568627, 1
             self.work_duration -= 1
             if self.work_duration < 0:
                 self.total_sets -= 1
@@ -86,7 +87,7 @@ class TimerWindow(Screen):
 
         else:
             self.counter.text = str(self.break_duration)
-            self.pausebutton.background_color = 1, 0, 0, 1
+            # self.pausebutton.background_color = 1, 0, 0, 1
             self.break_duration -= 1
             if self.break_duration < 0:
                 self.current_timer = "work"
@@ -140,6 +141,7 @@ sm.add_widget(TimerWindow(name='timer'))
 class MainApp(App):
     def build(self):
         '''Main interface'''
+        Window.clearcolor = (1,1,1,1)
         return sm
 
 if __name__ == "__main__":
