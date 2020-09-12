@@ -25,14 +25,16 @@ class MainWindow(Screen):
     '''Starting screen where the user inputs the parameters of their workout.'''
     set_number = ObjectProperty(None)
     duration = ObjectProperty(None)
+    break_duration = ObjectProperty(None)
 
     def countdown(self):
         '''If parameters are properly set, saves the input values and moves to the TimerWindow screen.'''
         if self.set_number.text is '' or self.duration.text is '': #Error pops up if no numbers are inputted.
             self.show_popup()
         else: #Jumps to TimerWindow and starts countdown otherwise. If we want to add a 3,2,1 countdown, probably put it here.
-            TimerWindow.totalsets = int(self.set_number.text)
-            TimerWindow.setduration = int(self.duration.text)
+            TimerWindow.sets = int(self.set_number.text)
+            TimerWindow.work = int(self.duration.text)
+            TimerWindow.break_dura = int(self.break_duration.text)
             sm.current = "timer"
 
 
@@ -46,18 +48,29 @@ class MainWindow(Screen):
 class TimerWindow(Screen):
     '''Screen where the timer is displayed.'''
     counter = ObjectProperty(None)
-    seconds= ObjectProperty(None)
+    total_sets = ObjectProperty(None)
+    work_duration = ObjectProperty(None)
+    break_duration = ObjectProperty(None)
+
+    current_timer = "work"
+    init_work = ObjectProperty(None)
+    init_break = ObjectProperty(None)
+
 
     def on_enter(self):
         '''Starts the count down when the screen is entered.'''
-        self.seconds = self.setduration
-        self.clock=Clock.schedule_interval(self.update_time, 1) #Calls update_time method once a second.
+        self.work_duration = self.work
+        self.total_sets = self.sets
+        self.break_duration = self.break_dura
+
+        if self.total_sets > 0:
+            self.clock = Clock.schedule_interval(self.update_time, 1) #Calls update_time method once a second.
 
     def on_leave(self):
         '''Resets all the parameters if stopping the timer.'''
         if self.pausebutton.text != 'Continue':
             self.clock.cancel()
-            del self.clock
+            # del self.clock
         self.counter.text ='Go!'
         self.pausemessage.text =''
         self.pausebutton.text = 'Pause'
@@ -65,25 +78,37 @@ class TimerWindow(Screen):
 
     def update_time(self, dt):
         '''Decrements the time left in the workout.'''
-        self.counter.text = str(self.seconds)
-        self.seconds -= 1
-        if self.seconds == -1:    #When the timer displays 0:
-            self.pausemessage.text = ''
+        if self.current_timer == "work":
+            self.counter.text = str(self.work_duration)
+            self.work_duration -= 1
+        else:
+            self.counter.text = str(self.break_duration)
+            self.break_duration -= 1
+
+        if self.counter.text == "0":
+            if self.current_timer == "work":
+                self.total_sets -= 1
+                self.current_timer = "break"
+                self.break_duration = self.break_dura
+            else:
+                self.current_timer = "work"
+                self.work_duration = self.work
+
+        if self.total_sets < 0:
             self.counter.text = 'FINISHED'
             self.clock.cancel()
-            del self.clock
 
     def pause_button(self):
         '''Pause button functionality.'''
         if self.pausebutton.text=='Continue':
             self.pausebutton.text = 'Pause'
             self.pausemessage.text = ''
-            self.seconds=self.second_saver
+            self.work_duration=self.second_saver
             self.clock = Clock.schedule_interval(self.update_time, 1)
         else:
             self.pausebutton.text = 'Continue'
             self.pausemessage.text = 'TIMER PAUSED'
-            self.second_saver = self.seconds
+            self.second_saver = self.work_duration
             self.clock.cancel()
             del self.clock
 
