@@ -30,7 +30,7 @@ class MainWindow(Screen):
 
     def countdown(self):
         '''If parameters are properly set, saves the input values and moves to the TimerWindow screen.'''
-        if self.set_number.text is '' or self.duration.text is '': #Error pops up if no numbers are inputted.
+        if self.set_number.text is '' or self.duration.text is '' or self.break_duration.text is '': #Error pops up if no numbers are inputted.
             self.show_popup()
         else: #Jumps to TimerWindow and starts countdown otherwise. If we want to add a 3,2,1 countdown, probably put it here.
             TimerWindow.sets = int(self.set_number.text)
@@ -72,6 +72,8 @@ class TimerWindow(Screen):
         self.counter.text ='Go!'
         self.pausemessage.text =''
         self.pausebutton.text = 'Pause'
+        self.current_timer = "work"
+        self.pausebutton.background_color = 0, 1, 0, 1
         self.secondsaver = None
 
     def update_time(self, dt):
@@ -123,10 +125,6 @@ class TimerWindow(Screen):
             self.second_saver = self.work_duration
             self.clock.cancel()
             del self.clock
-
-
-
-
 
 
 class WindowManager(ScreenManager):
