@@ -15,8 +15,11 @@ from kivy.animation import Animation
 from kivy.properties import StringProperty, NumericProperty
 from kivy.uix.popup import Popup
 from kivy.uix.button import Button
+from functools import partial
+import datetime
 
-
+#str(datetime.timedelta(seconds=666))
+#= 0:11:06
 
 class MainWindow(Screen):
     set_number = ObjectProperty(None)
@@ -26,10 +29,10 @@ class MainWindow(Screen):
         if self.set_number.text is '' or self.duration.text is '': #Error pops up if no numbers are inputted.
             self.show_popup()
         else: #Jumps to TimerWindow and starts countdown otherwise. If we want to add a 3,2,1 countdown, probably put it here.
-            totalsets = int(self.set_number.text)
-            setduration = int(self.duration.text)
+            TimerWindow.totalsets = int(self.set_number.text)
+            TimerWindow.setduration = int(self.duration.text)
             sm.current = "timer"
-            TimerWindow().start_timer(totalsets, setduration)
+
 
     def show_popup(self): #Error popup code
         content = Button(text='Please input numbers.')
@@ -38,28 +41,34 @@ class MainWindow(Screen):
         popupWindow.open()
 
 class TimerWindow(Screen):
-    timer_message = StringProperty('Timer Goes Here. Press to Pause/Continue')
+    counter = ObjectProperty(None)
+    seconds= NumericProperty(0)
+
+    def on_enter(self):
+        self.seconds = self.setduration
+        self.clock=Clock.schedule_interval(self.update_time, 1)
+
+    # def update_time(self, dt):
+    #     self.counter.text = str(self.seconds)
+    #     if self.counter.seconds < 0:
+    #         self.counter.text = 'FINISHED'
+    #         self._clock.cancel()
+    #         del self._clock
+    #     else:
+    #         self.seconds -= 1
+
+    def update_time(self, dt):
+        self.counter.text = str(self.seconds)
+        self.seconds -= 1
+        if self.seconds < 0:
+            self.counter.text = 'FINISHED'
+            self.clock.cancel()
+
     def pause_button(self):
-        print('pressed')
+        print('press')
 
-    def start_timer(self, totalsets, setduration):
-        #Placeholder Timer Logic
-        setdurationoriginal=setduration
-        while totalsets>0:
-            if totalsets==1:
-                print(totalsets, "set left.")
-            else:
-                print(totalsets, "sets left.")
-            totalsets-=1
-            while setduration>=0:
-                if setduration==1:
-                    print (setduration, "second left.")
-                else:
-                    print (setduration, "seconds left.")
-                setduration-=1
-            setduration=setdurationoriginal
-        print ("FINISHED")
-
+class WindowManager(ScreenManager):
+    pass
 
 kv = Builder.load_file("main.kv")
 sm = ScreenManager(transition=CardTransition())

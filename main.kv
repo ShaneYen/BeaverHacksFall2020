@@ -1,3 +1,7 @@
+WindowManager:
+    MainWindow:
+    TimerWindow:
+
 <Label>:
     color: 1,0,0,1
 
@@ -58,6 +62,7 @@
 
 <TimerWindow>:
     name: "timer"
+    counter: counter
 
     canvas:
         Color:
@@ -68,12 +73,13 @@
             size: self.size
 
     Button:
-        text: root.timer_message
+        id: timertest
+        text: "Pause"
         font_size: 30
-        size_hint: 1, 1
+        size_hint: 0.25, 0.25
         background_color: 0,1,0,1
         color: 1,.53,.36,1
-        pos_hint: {"x": 0, "bottom":1}
+        pos_hint: {"x": 0.375,"bottom":1}
         on_release: root.pause_button()
 
     Button:
@@ -95,3 +101,8 @@
             app.root.current = "main"
             root.manager.transition.direction ="right"
 
+    Label:
+        id: counter
+        text: "Go!"
+        font_size: 100
+        pos_hint: {"top": 1.1}
