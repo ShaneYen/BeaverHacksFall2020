@@ -61,6 +61,12 @@ class TimerWindow(Screen):
     break_duration = ObjectProperty(None)
 
     current_timer = "work"
+    def on_pre_enter(self, *args):
+        self.work_duration = self.work
+        self.total_sets = self.sets
+        self.total_set_count = self.total_sets
+        self.workouttype.text = 'High Intensity'
+        self.cyclesleft.text = ('0/' + str(self.total_set_count) + ' Sets Complete')
 
     def on_enter(self):
         '''Starts the count down when the screen is entered.'''
@@ -85,9 +91,13 @@ class TimerWindow(Screen):
 
     def update_time(self, dt):
         '''Decrements the time left in the workout.'''
+        self.cyclesleft.text = (str(self.total_set_count - self.total_sets) + '/' + str(self.total_set_count) + ' Sets Complete')
         if self.current_timer == "work":
             self.counter.text = str(self.work_duration)
             self.pausebutton.background_color = kivy_color(work_bg_color)
+            self.workouttype.text= 'High Intensity'
+            self.counter.text = str(datetime.timedelta(seconds=self.work_duration))[2:]
+            self.pausebutton.background_color = 0.713725490196078,0.784313725490196,0.309803921568627, 1
             self.work_duration -= 1
             if self.work_duration < 0:
                 self.total_sets -= 1
@@ -95,20 +105,28 @@ class TimerWindow(Screen):
                 self.break_duration = self.break_dura
 
         else:
-            self.counter.text = str(self.break_duration)
-            self.pausebutton.background_color = kivy_color(break_bg_color)
-            self.break_duration -= 1
-            if self.break_duration < 0:
-                self.current_timer = "work"
-                self.work_duration = self.work
+            if self.total_sets>0:
+                self.counter.text = str(datetime.timedelta(seconds=self.break_duration))[2:]
+                self.workouttype.text = 'Low Intensity'
+                self.break_duration -= 1
+                if self.break_duration < 0:
+                    self.current_timer = "work"
+                    self.work_duration = self.work
 
-        if self.total_sets < 0:
+        if self.total_sets < 1:
+            self.cyclesleft.text = (str(self.total_set_count) + '/' + str(self.total_set_count) + ' Sets Complete')
             self.counter.text = 'FINISHED'
             self.clock.cancel()
+            Clock.schedule_once(self.timer_finished, 3)
+
+    def timer_finished(self, dt):
+        sm.current = "main"
 
     def pause_button(self):
         '''Pause button functionality.'''
-        if self.pausebutton.text=='Continue':
+        if self.counter.text == 'FINISHED':
+            pass
+        elif self.pausebutton.text=='Continue':
             self.pausebutton.text = 'Pause'
             self.pausemessage.text = ''
             self.work_duration=self.second_saver
