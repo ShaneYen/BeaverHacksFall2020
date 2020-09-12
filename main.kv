@@ -1,7 +1,3 @@
-WindowManager:
-    MainWindow:
-    TimerWindow:
-
 <Label>:
     color: 1,0,0,1
 
@@ -17,7 +13,7 @@ WindowManager:
             size: self.size
 
     set_number: set
-    set_duration: dura
+    duration: dura
     break_duration: break_dura
 
     GridLayout:
@@ -26,7 +22,6 @@ WindowManager:
 
         Label:
             text: "HIIT Timer"
-
         GridLayout:
             cols:2
 
@@ -39,7 +34,7 @@ WindowManager:
                 input_filter: 'int'
 
             Label:
-                text: "Duration of Each Set: "
+                text: "Duration of Sets: "
 
             TextInput:
                 id: dura
@@ -57,11 +52,13 @@ WindowManager:
         Button:
             text: "Start Workout"
             on_release:
-                app.root.current = "TimerWindow"
+                root.countdown()
                 root.manager.transition.direction ="left"
 
+
 <TimerWindow>:
-    name: "TimerWindow"
+    name: "timer"
+
     canvas:
         Color:
             rgb: (0.93, 0.93, 0.93)
@@ -71,13 +68,13 @@ WindowManager:
             size: self.size
 
     Button:
-        text: "Pause/continue button - display text to be replaced with timer"
+        text: root.timer_message
         font_size: 30
         size_hint: 1, 1
         background_color: 0,1,0,1
         color: 1,.53,.36,1
         pos_hint: {"x": 0, "bottom":1}
-        on_release: root.pause()
+        on_release: root.pause_button()
 
     Button:
         text: "Restart"
@@ -97,6 +94,4 @@ WindowManager:
         on_release:
             app.root.current = "main"
             root.manager.transition.direction ="right"
-
-
 
