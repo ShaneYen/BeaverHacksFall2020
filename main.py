@@ -53,9 +53,6 @@ class TimerWindow(Screen):
     break_duration = ObjectProperty(None)
 
     current_timer = "work"
-    init_work = ObjectProperty(None)
-    init_break = ObjectProperty(None)
-
 
     def on_enter(self):
         '''Starts the count down when the screen is entered.'''
@@ -80,19 +77,33 @@ class TimerWindow(Screen):
         '''Decrements the time left in the workout.'''
         if self.current_timer == "work":
             self.counter.text = str(self.work_duration)
+            self.pausebutton.background_color = 0, 1, 0, 1
             self.work_duration -= 1
-        else:
-            self.counter.text = str(self.break_duration)
-            self.break_duration -= 1
-
-        if self.counter.text == "0":
-            if self.current_timer == "work":
+            if self.work_duration < 0:
                 self.total_sets -= 1
                 self.current_timer = "break"
                 self.break_duration = self.break_dura
-            else:
+
+        else:
+            self.counter.text = str(self.break_duration)
+            self.pausebutton.background_color = 1, 0, 0, 1
+            self.break_duration -= 1
+            if self.break_duration < 0:
                 self.current_timer = "work"
                 self.work_duration = self.work
+
+
+        # if self.current_timer == "work":
+        #     if self.work_duration < 0:
+        #         self.total_sets -= 1
+        #         self.current_timer = "break"
+        #         self.break_duration = self.break_dura
+        #         self.pausebutton.background_color = 1,0,0,1
+        # else:
+        #     if self.break_duration < 0:
+        #         self.current_timer = "work"
+        #         self.work_duration = self.work
+        #         self.pausebutton.background_color = 0, 1, 0, 1
 
         if self.total_sets < 0:
             self.counter.text = 'FINISHED'
