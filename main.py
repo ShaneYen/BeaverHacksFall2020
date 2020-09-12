@@ -22,11 +22,18 @@ import datetime
 #str(datetime.timedelta(seconds=666))
 #= 0:11:06
 
+work_bg_color = (182, 79, 200,1)
+break_bg_color =(130,122, 137,1)
+
+def kivy_color(tuple):
+    return (tuple[0]/255, tuple[1]/255, tuple[2]/255, tuple[3])
+
 class MainWindow(Screen):
     '''Starting screen where the user inputs the parameters of their workout.'''
     set_number = ObjectProperty(None)
     duration = ObjectProperty(None)
     break_duration = ObjectProperty(None)
+    label_font_color = kivy_color(work_bg_color)
 
     def countdown(self):
         '''If parameters are properly set, saves the input values and moves to the TimerWindow screen.'''
@@ -80,7 +87,7 @@ class TimerWindow(Screen):
         '''Decrements the time left in the workout.'''
         if self.current_timer == "work":
             self.counter.text = str(self.work_duration)
-            # self.pausebutton.background_color = 0.713725490196078,0.784313725490196,0.309803921568627, 1
+            self.pausebutton.background_color = kivy_color(work_bg_color)
             self.work_duration -= 1
             if self.work_duration < 0:
                 self.total_sets -= 1
@@ -89,24 +96,11 @@ class TimerWindow(Screen):
 
         else:
             self.counter.text = str(self.break_duration)
-            # self.pausebutton.background_color = 1, 0, 0, 1
+            self.pausebutton.background_color = kivy_color(break_bg_color)
             self.break_duration -= 1
             if self.break_duration < 0:
                 self.current_timer = "work"
                 self.work_duration = self.work
-
-
-        # if self.current_timer == "work":
-        #     if self.work_duration < 0:
-        #         self.total_sets -= 1
-        #         self.current_timer = "break"
-        #         self.break_duration = self.break_dura
-        #         self.pausebutton.background_color = 1,0,0,1
-        # else:
-        #     if self.break_duration < 0:
-        #         self.current_timer = "work"
-        #         self.work_duration = self.work
-        #         self.pausebutton.background_color = 0, 1, 0, 1
 
         if self.total_sets < 0:
             self.counter.text = 'FINISHED'

@@ -2,6 +2,9 @@ WindowManager:
     MainWindow:
     TimerWindow:
 
+<Label>
+    bold: True
+    font_size: 25
 
 <SmoothButton@Button>:
     background_color: (0,0,0,0)
@@ -28,7 +31,6 @@ WindowManager:
         Color:
             rgba: self.back_color
 
-
 <MainWindow>:
     name: "main"
 
@@ -44,23 +46,25 @@ WindowManager:
     duration: dura
     break_duration: break_dura
 
-    GridLayout:
-        cols: 1
-        size: root.width, root.height
-        padding: [30]
+    BoxLayout:
+        orientation: "vertical"
+        padding:[30,0,30,40]
 
         Label:
-            font_size: 40
             text: "HIIT Timer"
-            font_size: 50
+            font_size: 80
+            color: root.label_font_color
+            bold: True
+            size_hint: 1, .3
 
         GridLayout:
             cols:2
             padding: [20]
+            size_hint: 1, .4
 
             Label:
                 text: "# of Sets: "
-                color: 0.713,0.784,0.309,1
+                color: root.label_font_color
 
             TextInput:
                 id: set
@@ -68,7 +72,8 @@ WindowManager:
                 input_filter: 'int'
 
             Label:
-                text: "Duration of Sets: "
+                text: "Set Duration: "
+                color: root.label_font_color
 
             TextInput:
                 id: dura
@@ -76,7 +81,8 @@ WindowManager:
                 input_filter: 'int'
 
             Label:
-                text: "Duration of Each Break: "
+                text: "Break Duration: "
+                color: root.label_font_color
 
             TextInput:
                 id: break_dura
@@ -85,6 +91,8 @@ WindowManager:
 
         SmoothButton:
             text: "Start Workout"
+            back_color: root.label_font_color
+            size_hint: 1, 0.2
             on_release:
                 root.countdown()
                 root.manager.transition.direction ="left"
@@ -95,6 +103,7 @@ WindowManager:
     counter: counter
     pausemessage:pausemessage
     pausebutton:pausebutton
+    stop_button: stop_button
 
     canvas:
         Color:
@@ -115,6 +124,7 @@ WindowManager:
         on_release: root.pause_button()
 
     SmoothButton:
+        id: stop_button
         text: "Stop"
         font_size: 40
         size_hint: 0.2, 0.15
@@ -127,7 +137,6 @@ WindowManager:
         id: counter
         text: "Go!"
         font_size: 100
-        font_color: 1,1,1,1
         pos_hint: {"top": 1.1}
 
     Label:
