@@ -26,6 +26,15 @@ break_bg_color =(130,122, 137,1)
 def kivy_color(tuple):
     return (tuple[0]/255, tuple[1]/255, tuple[2]/255, tuple[3])
 
+#str(datetime.timedelta(seconds=666))
+#= 0:11:06
+
+work_bg_color = (182, 79, 200,1)
+break_bg_color =(130,122, 137,1)
+
+def kivy_color(tuple):
+    return (tuple[0]/255, tuple[1]/255, tuple[2]/255, tuple[3])
+
 class MainWindow(Screen):
     '''Starting screen where the user inputs the parameters of their workout.'''
     set_number = ObjectProperty(None)
@@ -35,6 +44,7 @@ class MainWindow(Screen):
 
     def countdown(self):
         '''If parameters are properly set, saves the input values and moves to the TimerWindow screen.'''
+
         if self.set_number.text == '' or self.set_number.text == '0' or self.duration.text == '' or self.duration.text == '0' or self.break_duration.text == '' or self.break_duration.text == '0': #Error pops up if no numbers are inputted.
             self.show_popup()
         else: #Jumps to TimerWindow and starts countdown otherwise. If we want to add a 3,2,1 countdown, probably put it here.
@@ -71,6 +81,7 @@ class TimerWindow(Screen):
         '''Starts the count down when the screen is entered.'''
         sound = SoundLoader.load('timerstart.wav')
         sound.play()
+
         if self.total_sets > 0:
             self.clock = Clock.schedule_interval(self.update_time, 1) #Calls update_time method once a second.
 
@@ -78,6 +89,7 @@ class TimerWindow(Screen):
         '''Resets all the parameters if stopping the timer.'''
         if self.pausebutton.text != 'Continue':
             self.clock.cancel()
+            # del self.clock
         self.counter.text ='Go!'
         self.pausemessage.text =''
         self.pausebutton.text = 'Pause'
