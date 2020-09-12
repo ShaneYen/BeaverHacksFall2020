@@ -59,8 +59,8 @@ class TimerWindow(Screen):
     total_sets = ObjectProperty(None)
     work_duration = ObjectProperty(None)
     break_duration = ObjectProperty(None)
-
     current_timer = "work"
+
     def on_pre_enter(self, *args):
         self.work_duration = self.work
         self.total_sets = self.sets
@@ -97,7 +97,6 @@ class TimerWindow(Screen):
             self.pausebutton.background_color = kivy_color(work_bg_color)
             self.workouttype.text= 'High Intensity'
             self.counter.text = str(datetime.timedelta(seconds=self.work_duration))[2:]
-            self.pausebutton.background_color = 0.713725490196078,0.784313725490196,0.309803921568627, 1
             self.work_duration -= 1
             if self.work_duration < 0:
                 self.total_sets -= 1
@@ -107,6 +106,7 @@ class TimerWindow(Screen):
         else:
             if self.total_sets>0:
                 self.counter.text = str(datetime.timedelta(seconds=self.break_duration))[2:]
+                self.pausebutton.background_color = kivy_color(break_bg_color)
                 self.workouttype.text = 'Low Intensity'
                 self.break_duration -= 1
                 if self.break_duration < 0:
