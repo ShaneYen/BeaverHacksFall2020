@@ -2,7 +2,6 @@ WindowManager:
     MainWindow:
     TimerWindow:
 
-
 <SmoothButton@Button>:
     background_color: (0,0,0,0)
     background_normal: ""
@@ -28,7 +27,6 @@ WindowManager:
         Color:
             rgba: self.back_color
 
-
 <MainWindow>:
     name: "main"
 
@@ -50,7 +48,7 @@ WindowManager:
         padding: [30]
 
         Label:
-            font_size: 40
+            font_size: 50
             text: "HIIT Timer"
             font_size: 50
 
@@ -95,6 +93,8 @@ WindowManager:
     counter: counter
     pausemessage:pausemessage
     pausebutton:pausebutton
+    workouttype:workouttype
+    cyclesleft:cyclesleft
 
     canvas:
         Color:
@@ -118,7 +118,8 @@ WindowManager:
         text: "Stop"
         font_size: 40
         size_hint: 0.2, 0.15
-        pos_hint: {"x": 0.005, "y": 0.005}
+        pos_hint: {"x": 0.005, "y":0.005}
+
         on_release:
             app.root.current = "main"
             root.manager.transition.direction ="right"
@@ -135,3 +136,15 @@ WindowManager:
         text: ""
         font_size: 50
         pos_hint: {"top": 1.25}
+
+    Label:
+        id: workouttype
+        text: ""
+        font_size: 35
+        pos_hint: {"top": 1.4}
+
+    Label:
+        id: cyclesleft
+        text: ""
+        font_size: 25
+        pos_hint: {"top": 1.325}
