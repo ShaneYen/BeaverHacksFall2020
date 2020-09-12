@@ -92,6 +92,7 @@ class TimerWindow(Screen):
         if self.current_timer == "work":
             self.counter.text = str(self.work_duration)
             self.pausebutton.background_color = kivy_color(work_bg_color)
+            self.stop_button.back_color = (1,1,1,1)
             self.workouttype.text= 'High Intensity'
             self.counter.text = str(datetime.timedelta(seconds=self.work_duration))[2:]
             self.work_duration -= 1
@@ -149,6 +150,7 @@ class MainApp(App):
     def build(self):
         '''Main interface'''
         Window.clearcolor = (1,1,1,1)
+        self.title = "HIIT Timer"
         return sm
 
 if __name__ == "__main__":

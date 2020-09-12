@@ -2,9 +2,23 @@ WindowManager:
     MainWindow:
     TimerWindow:
 
-<Label>
+<Label>:
     bold: True
-    font_size: 25
+    font_size: 20
+
+<TextInput>:
+    background_color: (0,0,0,0)
+    background_normal: ""
+    back_color: (1,1,1,1)
+    border_radius: 10
+    color: self.back_color
+    bold: True
+    canvas.before:
+        Color:
+            rgba: self.back_color
+        Line:
+            rounded_rectangle:(self.pos[0]-5, self.pos[1]+2, self.size[0]-30, self.size[1], self.border_radius)
+            width: 1.2
 
 <SmoothButton@Button>:
     background_color: (0,0,0,0)
@@ -23,7 +37,7 @@ WindowManager:
 <CustomButton@Button>:
     background_color: (0,0,0,0)
     background_normal: ""
-    back_color: (0.713725490196078,0.784313725490196,0.309803921568627,1)
+    back_color: (1,1,1,1)
     border_radius: 18
     color: self.back_color
     bold: True
@@ -48,19 +62,20 @@ WindowManager:
 
     BoxLayout:
         orientation: "vertical"
-        padding:[30,0,30,40]
+        padding:[50,50,50,50]
 
         Label:
             text: "HIIT Timer"
-            font_size: 80
+            font_size: 90
             color: root.label_font_color
             bold: True
-            size_hint: 1, .3
+            size_hint: 1, .15
 
         GridLayout:
             cols:2
-            padding: [20]
-            size_hint: 1, .4
+            padding: [50,0,50,50]
+            size_hint: 1, .2
+            spacing: 30
 
             Label:
                 text: "# of Sets: "
@@ -70,6 +85,7 @@ WindowManager:
                 id: set
                 multiline: False
                 input_filter: 'int'
+
 
             Label:
                 text: "High Intensity Duration: "
@@ -93,7 +109,8 @@ WindowManager:
             text: "Start Workout"
             back_color: 1,1,1,1
             color: root.label_font_color
-            size_hint: 1, 0.2
+            size_hint: 1, 0.1
+            font_size: 50
             on_release:
                 root.countdown()
                 root.manager.transition.direction ="left"
@@ -120,7 +137,6 @@ WindowManager:
         id: pausebutton
         text: "Pause"
         font_size: 100
-        background_color: 0.125490196078431,0.141176470588235,0.129411764705882,1
         color: 1,1,1,0
         size_hint: 1,1
         pos_hint: {"x": 0,"bottom":1}
@@ -131,7 +147,7 @@ WindowManager:
         text: "Stop"
         font_size: 40
         size_hint: 0.2, 0.15
-        pos_hint: {"x": 0.005, "y": 0.005}
+        pos_hint: {"center_x": .5, "y": 0.005}
         back_color: 0.125490196078431,0.141176470588235,0.129411764705882,1
         on_release:
             app.root.current = "main"
