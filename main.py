@@ -18,9 +18,6 @@ from kivy.uix.button import Button
 from functools import partial
 import datetime
 
-#str(datetime.timedelta(seconds=666))
-#= 0:11:06
-
 class MainWindow(Screen):
     '''Starting screen where the user inputs the parameters of their workout.'''
     set_number = ObjectProperty(None)

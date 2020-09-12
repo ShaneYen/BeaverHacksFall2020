@@ -2,15 +2,37 @@ WindowManager:
     MainWindow:
     TimerWindow:
 
-<Label>:
-    color: 1,0,0,1
+<SmoothButton@Button>:
+    background_color: (0,0,0,0)
+    background_normal: ""
+    back_color: (1,1,1,1)
+    border_radius: 18
+    color: self.back_color
+    bold: True
+    canvas.before:
+        Color:
+            rgba: self.back_color
+        Line:
+            rounded_rectangle:(self.pos[0], self.pos[1], self.size[0], self.size[1], self.border_radius)
+            width: 1.2
+
+<CustomButton@Button>:
+    background_color: (0,0,0,0)
+    background_normal: ""
+    back_color: (0.713725490196078,0.784313725490196,0.309803921568627,1)
+    border_radius: 18
+    color: self.back_color
+    bold: True
+    canvas.before:
+        Color:
+            rgba: self.back_color
 
 <MainWindow>:
     name: "main"
 
     canvas:
         Color:
-            rgb: (0.93, 0.93, 0.93)
+            rgb: (0.125490196078431,0.141176470588235,0.129411764705882)
 
         Rectangle:
             pos: self.pos
@@ -23,15 +45,18 @@ WindowManager:
     GridLayout:
         cols: 1
         size: root.width, root.height
+        padding: [30]
 
         Label:
-            font_size: 40
+            font_size: 50
             text: "HIIT Timer"
         GridLayout:
             cols:2
+            padding: [20]
 
             Label:
                 text: "# of Sets: "
+                color: 0.713,0.784,0.309,1
 
             TextInput:
                 id: set
@@ -54,7 +79,7 @@ WindowManager:
                 multiline: False
                 input_filter: 'int'
 
-        Button:
+        SmoothButton:
             text: "Start Workout"
             on_release:
                 root.countdown()
@@ -71,27 +96,27 @@ WindowManager:
 
     canvas:
         Color:
-            rgb: (0.93, 0.93, 0.93)
+            rgb: (0.125490196078431,0.141176470588235,0.129411764705882)
 
         Rectangle:
             pos: self.pos
             size: self.size
 
-    Button:
+    CustomButton:
         id: pausebutton
         text: "Pause"
-        font_size: 30
+        font_size: 100
         size_hint: 1,1
-        background_color: 0,1,0,1
-        color: 1,.53,.36,1
+        background_color: 0.125490196078431,0.141176470588235,0.129411764705882,1
+        color: 1,1,1,0
         pos_hint: {"x": 0,"bottom":1}
         on_release: root.pause_button()
 
-    Button:
+    SmoothButton:
         text: "Stop"
         font_size: 40
-        size_hint: 0.2, 0.2
-        pos_hint: {"x": 0, "bottom":1}
+        size_hint: 0.2, 0.15
+        pos_hint: {"x": 0.005, "y":0.005}
 
         on_release:
             app.root.current = "main"
@@ -101,6 +126,7 @@ WindowManager:
         id: counter
         text: "Go!"
         font_size: 100
+        font_color: 1,1,1,1
         pos_hint: {"top": 1.1}
 
     Label:
