@@ -15,6 +15,7 @@ from kivy.animation import Animation
 from kivy.properties import StringProperty, NumericProperty
 from kivy.uix.popup import Popup
 from kivy.uix.button import Button
+from kivy.core.window import Window
 from functools import partial
 import datetime
 
@@ -26,7 +27,7 @@ class MainWindow(Screen):
 
     def countdown(self):
         '''If parameters are properly set, saves the input values and moves to the TimerWindow screen.'''
-        if self.set_number.text is ('' or '0') or self.duration.text is ('' or '0') or self.break_duration.text is ('' or '0'): #Error pops up if no numbers are inputted.
+        if self.set_number.text == '' or self.set_number.text == '0' or self.duration.text == '' or self.duration.text == '0' or self.break_duration.text == '' or self.break_duration.text == '0': #Error pops up if no numbers are inputted.
             self.show_popup()
         else: #Jumps to TimerWindow and starts countdown otherwise. If we want to add a 3,2,1 countdown, probably put it here.
             TimerWindow.sets = int(self.set_number.text)
@@ -74,7 +75,7 @@ class TimerWindow(Screen):
         self.current_timer = "work"
         self.workouttype.text = 'High Intensity'
         self.cyclesleft.text = ('0/' + str(self.total_set_count) + ' Sets Complete')
-        self.pausebutton.background_color = 0, 1, 0, 1
+        #self.pausebutton.background_color = (0.125490196078431,0.141176470588235,0.129411764705882)
         self.secondsaver = None
 
     def update_time(self, dt):
@@ -83,7 +84,7 @@ class TimerWindow(Screen):
         if self.current_timer == "work":
             self.workouttype.text= 'High Intensity'
             self.counter.text = str(datetime.timedelta(seconds=self.work_duration))[2:]
-            self.pausebutton.background_color = 0, 1, 0, 1
+            #self.pausebutton.background_color = 0.713725490196078,0.784313725490196,0.309803921568627, 1
             self.work_duration -= 1
             if self.work_duration < 0:
                 self.total_sets -= 1
@@ -94,7 +95,6 @@ class TimerWindow(Screen):
             if self.total_sets>0:
                 self.counter.text = str(datetime.timedelta(seconds=self.break_duration))[2:]
                 self.workouttype.text = 'Low Intensity'
-                self.pausebutton.background_color = 1, 0, 0, 1
                 self.break_duration -= 1
                 if self.break_duration < 0:
                     self.current_timer = "work"
@@ -138,9 +138,8 @@ sm.add_widget(TimerWindow(name='timer'))
 class MainApp(App):
     def build(self):
         '''Main interface'''
+        Window.clearcolor = (1,1,1,1)
         return sm
 
 if __name__ == "__main__":
     MainApp().run() #.run method from App class
-
-

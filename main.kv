@@ -50,6 +50,8 @@ WindowManager:
         Label:
             font_size: 50
             text: "HIIT Timer"
+            font_size: 50
+
         GridLayout:
             cols:2
             padding: [20]
@@ -106,9 +108,9 @@ WindowManager:
         id: pausebutton
         text: "Pause"
         font_size: 100
-        size_hint: 1,1
         background_color: 0.125490196078431,0.141176470588235,0.129411764705882,1
         color: 1,1,1,0
+        size_hint: 1,1
         pos_hint: {"x": 0,"bottom":1}
         on_release: root.pause_button()
 
