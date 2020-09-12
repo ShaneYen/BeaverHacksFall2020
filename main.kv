@@ -1,6 +1,11 @@
 <Label>:
     color: 1,0,0,1
 
+
+<Work_timer>
+    text: str(round(self.a, 20))
+    font_size: 40
+
 <MainWindow>:
     name: "main"
 
@@ -34,7 +39,7 @@
                 input_filter: 'int'
 
             Label:
-                text: "Duration of Sets: "
+                text: "Duration of Sets in seconds: "
 
             TextInput:
                 id: dura
@@ -42,7 +47,7 @@
                 input_filter: 'int'
 
             Label:
-                text: "Duration of Each Break: "
+                text: "Duration of Each Break in seconds: "
 
             TextInput:
                 id: break_dura
@@ -58,19 +63,12 @@
 
 <TimerWindow>:
     name: "timer"
-
-    canvas:
-        Color:
-            rgb: (0.93, 0.93, 0.93)
-
-        Rectangle:
-            pos: self.pos
-            size: self.size
+    counter: counter
 
     Button:
         text: root.timer_message
         font_size: 30
-        size_hint: 1, 1
+        size_hint: .5, .5
         background_color: 0,1,0,1
         color: 1,.53,.36,1
         pos_hint: {"x": 0, "bottom":1}
@@ -94,4 +92,11 @@
         on_release:
             app.root.current = "main"
             root.manager.transition.direction ="right"
+
+    Label:
+        id: counter
+        text: "start"
+
+
+
 
