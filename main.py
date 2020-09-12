@@ -1,22 +1,12 @@
 import kivy
 from kivy.app import App
-from kivy.uix.label import Label
-from kivy.uix.gridlayout import GridLayout
-from kivy.uix.textinput import TextInput
-from kivy.uix.widget import Widget
 from kivy.properties import ObjectProperty
-from kivy.uix.floatlayout import FloatLayout
-from kivy.graphics import Rectangle
-from kivy.graphics import Color
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen, CardTransition
 from kivy.clock import Clock
-from kivy.animation import Animation
-from kivy.properties import StringProperty, NumericProperty
 from kivy.uix.popup import Popup
 from kivy.uix.button import Button
 from kivy.core.window import Window
-from functools import partial
 import datetime
 
 class MainWindow(Screen):
