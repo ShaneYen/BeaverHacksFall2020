@@ -65,15 +65,12 @@ class TimerWindow(Screen):
         self.work_duration = self.work
         self.total_sets = self.sets
         self.total_set_count = self.total_sets
+        self.break_duration = self.break_dura
         self.workouttype.text = 'High Intensity'
         self.cyclesleft.text = ('0/' + str(self.total_set_count) + ' Sets Complete')
 
     def on_enter(self):
         '''Starts the count down when the screen is entered.'''
-        self.work_duration = self.work
-        self.total_sets = self.sets
-        self.break_duration = self.break_dura
-
         if self.total_sets > 0:
             self.clock = Clock.schedule_interval(self.update_time, 1) #Calls update_time method once a second.
 
@@ -86,7 +83,7 @@ class TimerWindow(Screen):
         self.pausemessage.text =''
         self.pausebutton.text = 'Pause'
         self.current_timer = "work"
-        self.pausebutton.background_color = 0, 1, 0, 1
+        self.pausebutton.background_color = 0.125490196078431,0.141176470588235,0.129411764705882,1
         self.secondsaver = None
 
     def update_time(self, dt):

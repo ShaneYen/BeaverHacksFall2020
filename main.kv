@@ -72,7 +72,7 @@ WindowManager:
                 input_filter: 'int'
 
             Label:
-                text: "Set Duration: "
+                text: "High Intensity Duration: "
                 color: root.label_font_color
 
             TextInput:
@@ -81,7 +81,7 @@ WindowManager:
                 input_filter: 'int'
 
             Label:
-                text: "Break Duration: "
+                text: "Low Intensity Duration: "
                 color: root.label_font_color
 
             TextInput:
@@ -91,7 +91,8 @@ WindowManager:
 
         SmoothButton:
             text: "Start Workout"
-            back_color: root.label_font_color
+            back_color: 1,1,1,1
+            color: root.label_font_color
             size_hint: 1, 0.2
             on_release:
                 root.countdown()
@@ -131,6 +132,7 @@ WindowManager:
         font_size: 40
         size_hint: 0.2, 0.15
         pos_hint: {"x": 0.005, "y": 0.005}
+        back_color: 0.125490196078431,0.141176470588235,0.129411764705882,1
         on_release:
             app.root.current = "main"
             root.manager.transition.direction ="right"
