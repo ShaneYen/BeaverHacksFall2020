@@ -63,6 +63,8 @@ WindowManager:
 <TimerWindow>:
     name: "timer"
     counter: counter
+    pausemessage:pausemessage
+    pausebutton:pausebutton
 
     canvas:
         Color:
@@ -73,7 +75,7 @@ WindowManager:
             size: self.size
 
     Button:
-        id: timertest
+        id: pausebutton
         text: "Pause"
         font_size: 30
         size_hint: 0.25, 0.25
@@ -92,7 +94,7 @@ WindowManager:
         ###on_release: restart
 
     Button:
-        text: "Back"
+        text: "Stop"
         font_size: 40
         size_hint: 0.2, 0.2
         pos_hint: {"x": 0, "bottom":1}
@@ -106,3 +108,9 @@ WindowManager:
         text: "Go!"
         font_size: 100
         pos_hint: {"top": 1.1}
+
+    Label:
+        id: pausemessage
+        text: ""
+        font_size: 50
+        pos_hint: {"top": 1.25}
