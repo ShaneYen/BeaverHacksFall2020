@@ -10,11 +10,14 @@ Runs on Windows and Android.
 
 ## HOW TO RUN:
 
-** PC: **
+**PC:**
+  *(Kivy does not need to be installed for this method.)*
   1) Download HIIT Timer.zip
   2) Extract 'main' folder (All files must be in this folder!)
   3) Run HIIT Timer.exe
+  
 
-** Android:**
+
+**Android:**
   1) Download <filename>.apk
   2) Run app!
