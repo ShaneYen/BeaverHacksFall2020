@@ -40,7 +40,13 @@ class MainWindow(Screen):
     set_number = ObjectProperty(None)
     duration = ObjectProperty(None)
     break_duration = ObjectProperty(None)
+    start_button = ObjectProperty(None)
     label_font_color = kivy_color(work_bg_color)
+    work_bg_color = kivy_color(work_bg_color)
+
+    def __init__(self, **kwargs):
+        super(MainWindow, self).__init__(**kwargs)
+        Window.bind(on_key_down=self.on_keyboard_down)
 
     def countdown(self):
         '''If parameters are properly set, saves the input values and moves to the TimerWindow screen.'''
@@ -53,6 +59,9 @@ class MainWindow(Screen):
             TimerWindow.break_dura = int(self.break_duration.text)
             sm.current = "timer"
 
+    def on_keyboard_down(self, instance, keyboard, keycode, text, modifiers):
+        if self.start_button.focus and keycode == 40:  # Enter key pressed
+            self.countdown()
 
     def show_popup(self):
         '''Error Popup for if the user does not input any numbers.'''
