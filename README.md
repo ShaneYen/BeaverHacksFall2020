@@ -20,5 +20,5 @@ Runs on Windows and Android.
 
 
 **Android:**
-  1) Download <filename>.apk
-  2) Run app!
+  1) Download HiitTimerv2 apk.zip
+  2) Extract and Run app!
