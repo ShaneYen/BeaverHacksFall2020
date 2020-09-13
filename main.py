@@ -20,9 +20,6 @@ from functools import partial
 import datetime
 from kivy.core.audio import SoundLoader
 
-work_bg_color = (182, 79, 200,1)
-break_bg_color =(130,122, 137,1)
-
 def kivy_color(tuple):
     return (tuple[0]/255, tuple[1]/255, tuple[2]/255, tuple[3])
 
@@ -31,6 +28,7 @@ def kivy_color(tuple):
 
 work_bg_color = (182, 79, 200,1)
 break_bg_color =(130,122, 137,1)
+gray = (190, 190, 194,1)
 
 def kivy_color(tuple):
     return (tuple[0]/255, tuple[1]/255, tuple[2]/255, tuple[3])
@@ -122,7 +120,7 @@ class TimerWindow(Screen):
                 sound.play()
             if self.work_duration < 0:
                 self.total_sets -= 1
-                if self.total_sets is not 0:
+                if self.total_sets != 0:
                     sound = SoundLoader.load('new_cycle.wav')
                     sound.play()
                 self.current_timer = "break"
@@ -161,11 +159,19 @@ class TimerWindow(Screen):
         elif self.pausebutton.text=='Continue':
             self.pausebutton.text = 'Pause'
             self.pausemessage.text = ''
+            self.stop_button.back_color = (1,1,1,1)
+            self.counter.color = (1,1,1,1)
+            self.workouttype.color = (1,1,1,1)
+            self.cyclesleft.color = (1,1,1,1)
             self.work_duration=self.second_saver
             self.clock = Clock.schedule_interval(self.update_time, 1)
         else:
             self.pausebutton.text = 'Continue'
             self.pausemessage.text = 'TIMER PAUSED'
+            self.stop_button.back_color = kivy_color(gray)
+            self.counter.color = kivy_color(gray)
+            self.workouttype.color = kivy_color(gray)
+            self.cyclesleft.color = kivy_color(gray)
             self.second_saver = self.work_duration
             self.clock.cancel()
             del self.clock
