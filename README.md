@@ -1,5 +1,6 @@
 # Project for BeaverHacks Fall 2020
 By Vi Phung and Shane Yen
+
 Built with Python and Kivy Framework
 
 ## ABOUT:
